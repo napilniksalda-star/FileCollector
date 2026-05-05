@@ -294,8 +294,13 @@ namespace FileCollector
             {
                 Location = new Point(margin, currentY),
                 Width = fullWidth,
-                Height = 30,
+                Height = 28,
                 Text = "Статистика: всего: 0 | скопировано: 0 | не найдено: 0",
+                TextAlign = ContentAlignment.MiddleLeft,
+                Padding = new Padding(8, 0, 8, 0),
+                BackColor = SystemColors.ControlLight,
+                BorderStyle = BorderStyle.FixedSingle,
+                Font = new Font(this.Font, FontStyle.Bold),
                 Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right
             };
             this.Controls.Add(lblStats);
@@ -304,16 +309,6 @@ namespace FileCollector
         private void BuildMenu()
         {
             mainMenu = new MenuStrip();
-            var miFile = new ToolStripMenuItem("Файл");
-            miFile.DropDownItems.Add(new ToolStripMenuItem("Выйти", null, (_, __) => this.Close()));
-            mainMenu.Items.Add(miFile);
-
-            var miExport = new ToolStripMenuItem("Экспорт");
-            miExport.DropDownItems.Add(new ToolStripMenuItem("HTML отчёт...", null, (_, __) => ExportAsHtml())
-            {
-                Name = "miExportHtml"
-            });
-            mainMenu.Items.Add(miExport);
 
             var miHelp = new ToolStripMenuItem("Справка");
             miHelp.DropDownItems.Add(new ToolStripMenuItem("О программе", null, (_, __) => ShowAboutBox()));

@@ -48,8 +48,8 @@ namespace FileCollector
         {
             this.StartPosition = FormStartPosition.CenterScreen;
             this.Text = VersionInfo.TitleBar;
-            this.Size = new Size(900, 700);
-            this.MinimumSize = new Size(850, 600);
+            this.Size = new Size(900, 740);
+            this.MinimumSize = new Size(850, 680);
             this.KeyPreview = true;
             this.BackColor = SystemColors.Control;
             this.ForeColor = SystemColors.ControlText;
@@ -61,9 +61,9 @@ namespace FileCollector
             SetupKeyboardShortcuts();
 
             _logger = new BatchUiLogger(AppendLog);
-            _plugins = new PluginManager(msg => _logger?.Info(msg));
+            // Plugin lifecycle messages go to debug output, not the user-visible log.
+            _plugins = new PluginManager(msg => Debug.WriteLine("[plugins] " + msg));
             RegisterBuiltInPlugins();
-            // External plugins from a sibling folder, optional.
             _plugins.LoadPlugins(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Plugins"));
 
             this.FormClosing += (_, __) =>
@@ -87,14 +87,11 @@ namespace FileCollector
         private void DisplayInitialInstructions()
         {
             const string instructions =
-                "========== ИНСТРУКЦИЯ ==========\n" +
-                "1. Выберите Excel со списком имён в столбце B (.xlsx / .xls).\n" +
-                "2. Добавьте одну или несколько папок для поиска.\n" +
-                "3. Укажите папку для сбора результатов.\n" +
-                "4. Отметьте нужные расширения (по умолчанию .pdf и .dxf).\n" +
-                "5. Нажмите 'Предпросмотр' (Ctrl+P), затем 'Запустить копирование' (Ctrl+S).\n\n" +
-                "Поля поддерживают drag-and-drop. Esc - отмена операции.\n" +
-                "================================\n";
+                "1. Excel со списком имён в столбце B.\n" +
+                "2. Папки для поиска (можно перетащить).\n" +
+                "3. Папка для сбора.\n" +
+                "4. Расширения (по умолчанию .pdf и .dxf).\n" +
+                "5. Ctrl+P - предпросмотр, Ctrl+S - копировать, Esc - отмена.";
             AppendLog(instructions);
         }
 
