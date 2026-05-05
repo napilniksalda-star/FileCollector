@@ -5,22 +5,35 @@
     <TargetFramework>net10.0-windows</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
     <Nullable>enable</Nullable>
+    <LangVersion>latest</LangVersion>
     <ApplicationManifest>app.manifest</ApplicationManifest>
+    <ApplicationIcon>Resources\app.ico</ApplicationIcon>
     <PublishSingleFile>true</PublishSingleFile>
     <SelfContained>true</SelfContained>
     <RuntimeIdentifier>win-x64</RuntimeIdentifier>
     <PublishReadyToRun>true</PublishReadyToRun>
+
+    <!-- ============================================================ -->
+    <!-- V3.0.0 "Phoenix" - polished release with extracted Core layer -->
+    <!-- ============================================================ -->
+    <Version>3.0.0</Version>
+    <AssemblyVersion>3.0.0.0</AssemblyVersion>
+    <FileVersion>3.0.0.0</FileVersion>
+    <InformationalVersion>3.0.0+phoenix</InformationalVersion>
+    <Product>FileCollector</Product>
+    <AssemblyTitle>FileCollector V3.0 (Phoenix)</AssemblyTitle>
+    <Company>POSTEX</Company>
+    <Copyright>Copyright (c) POSTEX 2026</Copyright>
+    <Description>Сборщик файлов V3.0 - поиск и копирование файлов по списку из Excel</Description>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="ClosedXML" Version="0.105.0" />
+    <!-- Only EPPlus is actually used in V3.0. ClosedXML and Newtonsoft.Json removed (were unused dead deps in V2.1). -->
     <PackageReference Include="EPPlus" Version="7.5.2" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
 
-  <!-- Копируем папку Resources в выходной каталог -->
   <ItemGroup>
-    <EmbeddedResource Include="Resources\\logo.png">
+    <EmbeddedResource Include="Resources\logo.png">
       <LogicalName>FileCollector.Resources.logo.png</LogicalName>
     </EmbeddedResource>
   </ItemGroup>

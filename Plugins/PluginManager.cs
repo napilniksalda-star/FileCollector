@@ -51,6 +51,21 @@ namespace FileCollector.Plugins
             }
         }
 
+        public void Register(IPlugin plugin)
+        {
+            if (plugin == null) return;
+            try
+            {
+                plugin.Initialize(this);
+                plugins.Add(plugin);
+                Log($"Зарегистрирован встроенный плагин: {plugin.Name} v{plugin.Version}");
+            }
+            catch (Exception ex)
+            {
+                Log($"Ошибка регистрации плагина {plugin.Name}: {ex.Message}");
+            }
+        }
+
         public T? GetPlugin<T>() where T : IPlugin => plugins.OfType<T>().FirstOrDefault();
 
         public IEnumerable<T> GetPlugins<T>() where T : IPlugin => plugins.OfType<T>();

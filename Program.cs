@@ -1,5 +1,6 @@
 using System;
 using System.Windows.Forms;
+using OfficeOpenXml;
 
 namespace FileCollector
 {
@@ -8,9 +9,9 @@ namespace FileCollector
         [STAThread]
         static void Main()
         {
-            // Анализируем цвета логотипа
-            ColorAnalyzer.AnalyzeLogo();
-            
+            // EPPlus 5+ requires explicit license context. Set it before any worksheet is touched.
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
